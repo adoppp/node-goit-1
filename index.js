@@ -1,4 +1,17 @@
-import * as contactsService from './db/index.js';
+import * as contactsService from './db/contacts.js';
+import { Command } from 'commander';
+
+const program = new Command();
+program
+  .option('-a, --action <type>', 'choose action')
+  .option('-i, --id <type>', 'user id')
+  .option('-n, --name <type>', 'user name')
+  .option('-e, --email <type>', 'user email')
+  .option('-p, --phone <type>', 'user phone');
+
+program.parse(process.argv);
+
+const argv = program.opts();
 
 const invokeAction = async ({ action, name, phone, email, id }) => {
     switch(action) {
@@ -28,3 +41,5 @@ const invokeAction = async ({ action, name, phone, email, id }) => {
 //invokeAction({action: "delete", id: "e6ywwRe4jcqxXfCZOj_1e"})
 //invokeAction({action: "update", id: "rsKkOQUi80UsgVPCcLZZW", name: "GoIt", email: "Donec.elementum@scelerisquescelerisquedui.net", phone: "770"})
 //npm start
+
+invokeAction(argv);
