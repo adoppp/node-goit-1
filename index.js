@@ -1,4 +1,4 @@
-import * as contactsService from './db/contacts.js';
+import * as contactsService from './contacts.js';
 import { Command } from 'commander';
 
 const program = new Command();
@@ -15,21 +15,18 @@ const argv = program.opts();
 
 const invokeAction = async ({ action, name, phone, email, id }) => {
     switch(action) {
-        case "contacts":
+        case "list":
             const contactsList = await contactsService.getAllContacts();
             return console.table(contactsList);
-        case "getById":
+        case "get":
             const contact = await contactsService.getContactById(id);
             return console.table(contact);
         case "add": 
             const newContact = await contactsService.addContact({name, email, phone})
             return console.table(newContact);
-        case "delete": 
+        case "remove": 
             const deletedContact = await contactsService.deleteContact(id);
             return console.table(deletedContact);
-        case "update": 
-            const update = await contactsService.updateById(id, {name, email, phone});
-            return console.table(update)
         default:
             console.log("Unknown action");
     }
