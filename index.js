@@ -20,13 +20,13 @@ const invokeAction = async ({ action, name, phone, email, id }) => {
             return console.table(contactsList);
         case "get":
             const contact = await contactsService.getContactById(id);
-            return console.table(contact);
+            return console.log(contact);
         case "add": 
             const newContact = await contactsService.addContact({name, email, phone})
-            return console.table(newContact);
+            return console.log(newContact);
         case "remove": 
             const deletedContact = await contactsService.deleteContact(id);
-            return console.table(deletedContact);
+            return console.log(deletedContact);
         default:
             console.log("Unknown action");
     }
